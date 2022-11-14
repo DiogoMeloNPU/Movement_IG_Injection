@@ -1,0 +1,1 @@
+#OpenCV - search a video frame by frame and click 'q' when you find the session onset (which is marked by the moment in which the )
