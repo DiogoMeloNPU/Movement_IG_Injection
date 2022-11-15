@@ -9,7 +9,7 @@ import pandas as pd
 import cv2
 
 #open the pkl file containing the video paths
-FilesDF_path = "E:\\My Drive\\MovementIGInjectionFilesDF.pkl"
+FilesDF_path = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\MovementIGInjectionFilesDF.pkl"
 FilesDF = pd.read_pickle(FilesDF_path)
 
 #create a function to rewind one second
@@ -31,6 +31,7 @@ for video_path in FilesDF['VideoPath']:
         # Read video capture
         ret, frame = cap.read()
         # Display each frame
+        cv2.putText(frame, video_path.split('\\')[-1], (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
         cv2.imshow("video", frame)
         # show one frame at a time
         key = cv2.waitKey(0)
@@ -47,6 +48,8 @@ for video_path in FilesDF['VideoPath']:
         # Quit when 'q' is pressed
         if key == ord('q'):
             break
+
+print(sessionOnsets)
 
 #If you reached this part of the code you have an array with the number of the frames corresponding to the beggining of each session
 #So, it is time to place those values in the proper column of FilesDF and store the file again as pkl
