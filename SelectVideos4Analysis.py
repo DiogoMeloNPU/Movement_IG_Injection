@@ -44,5 +44,10 @@ for imaging_region in drive_files_path_total:
 #show the complete array
 print(paths2inputDLCanalysis)
 
+#convert to np.array and save the variable as a .npy
+paths2inputDLCanalysis = np.array(paths2inputDLCanalysis)
+save_here = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\paths2inputDLCanalysis.npy"
+np.save(save_here, paths2inputDLCanalysis, allow_pickle=True)
+
 #how many videos will vbe analyzed
 print(len(paths2inputDLCanalysis))
