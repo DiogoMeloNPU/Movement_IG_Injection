@@ -9,6 +9,19 @@ drive_files_path_SNc = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPB
 drive_files_path_VTA = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\VTA"
 drive_files_path_total = [drive_files_path_SNc, drive_files_path_VTA]
 
+#create a function that computes the duration of a video in minutes given the video path
+def video_duration_min(video_path):
+    cap = cv2.VideoCapture(video_path)
+    videofps = cap.get(cv2.CAP_PROP_FPS)
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    if frame_count == 0:
+        duration_min = -1
+    else:
+        duration_sec = frame_count/videofps
+        duration_min = int(duration_sec/60)
+
+    return duration_min
+
 #create an array to save the video file paths
 paths2inputDLCanalysis = []
 
@@ -20,7 +33,16 @@ for imaging_region in drive_files_path_total:
                 temp_path = os.path.join(path, name)
                 temp_path = temp_path.split('\\')
                 currentpath = '\\'.join(temp_path)
-                paths2inputDLCanalysis.append(currentpath)
-                
+                #get the duration of the video in minutes
+                duration_min = video_duration_min(currentpath)
+                if duration_min > 20:
+                    paths2inputDLCanalysis.append(currentpath)
+                    print('The following video will be analyzed with DLC: {}'.format(currentpath))
+                else:
+                    print('The current video is 0 frames long and should be discarded: {}'.format(currentpath))
+
 #show the complete array
 print(paths2inputDLCanalysis)
+
+#how many videos will vbe analyzed
+print(len(paths2inputDLCanalysis))
