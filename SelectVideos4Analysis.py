@@ -11,6 +11,7 @@ drive_files_path_total = [drive_files_path_SNc, drive_files_path_VTA]
 
 #create an array to save the video file paths
 paths2inputDLCanalysis = []
+
 #store the files in an array
 for imaging_region in drive_files_path_total:
     for path, subdirs, files in os.walk(imaging_region):
@@ -20,5 +21,6 @@ for imaging_region in drive_files_path_total:
                 temp_path = temp_path.split('\\')
                 currentpath = '\\'.join(temp_path)
                 paths2inputDLCanalysis.append(currentpath)
+                
 #show the complete array
 print(paths2inputDLCanalysis)
