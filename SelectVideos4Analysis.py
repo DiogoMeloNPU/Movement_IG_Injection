@@ -55,4 +55,4 @@ save_here = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All
 np.save(save_here, videoPathsAndFPS, allow_pickle=True)
 
 #how many videos will be analyzed
-print(len(paths2inputDLCanalysis))
+print('A total of {} videos will be analyzed.'.format(len(paths2inputDLCanalysis)))
