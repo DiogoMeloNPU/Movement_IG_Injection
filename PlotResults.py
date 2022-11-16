@@ -28,10 +28,10 @@ ax_VTA.set_ylabel('Movement\n(Pixel change)')
 ax_VTA.set_xlabel('Time (s)')
 ax_VTA.plot(np.linspace(-300, 600, 135),
             binned_data_median[8:8+135], label='Intragastric Sucrose', linewidth=0.9, color='r')
-'''ax_VTA.plot(np.linspace(-300, 600, 100), signal1_VTA, label = 'Intragastric Sucrose', color = 'r', linewidth = 0.9)
+ax_VTA.plot(np.linspace(-300, 600, 100), signal1_VTA, label = 'Intragastric Sucrose', color = 'r', linewidth = 0.9)
 ax_VTA.fill_between(np.linspace(-300, 600, 100), 
                  signal1_VTA - 200,
-                 signal1_VTA + 200, alpha = 0.2, color = 'r')'''
+                 signal1_VTA + 200, alpha = 0.2, color = 'r')
 ax_VTA.plot(np.linspace(-300, 600, 100), signal2_VTA,
             label='Intragastric Sucralose', color='black', linewidth=0.9)
 ax_VTA.fill_between(np.linspace(-300, 600, 100),
@@ -42,6 +42,7 @@ ax_VTA.plot(np.linspace(-300, 600, 100), signal3_VTA,
 ax_VTA.fill_between(np.linspace(-300, 600, 100),
                     signal3_VTA - 200,
                     signal3_VTA + 200, alpha=0.2, color='blue')
+#delete VTA - SMOF lipid
 ax_VTA.plot(np.linspace(-300, 600, 100), signal4_VTA,
             label='Intragastric SMOF lipid', color='green', linewidth=0.9)
 ax_VTA.fill_between(np.linspace(-300, 600, 100),
