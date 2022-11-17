@@ -31,6 +31,9 @@ elif len(missingDLCanalysis) == 1:
 else:
     print('!!A total of {} videos were not analyzed!!'.format(len(missingDLCanalysis)))
 
+#print the array
+print(missingDLCanalysis)
+
 #convert to np.array and save the variable as a .npy
 missingDLCanalysis = np.array(missingDLCanalysis)
 save_here = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\missingDLCanalysis.npy"
