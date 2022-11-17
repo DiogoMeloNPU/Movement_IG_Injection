@@ -28,7 +28,7 @@ def rewind_key_action():
 file_exists = input("Does the file numFrameSessionOnset (1 (for YES) OR 0 (for NO)): ")
 
 #create a path to save the array where all the frame numbers corresponding to the session onset are stored
-path2saveNPY = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\TEMP_numFrameSessionOnset.npy"
+path2saveNPY = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\numFrameSessionOnset.npy"
 
 #if the file already exists, you can skip the already assessed videos and check those that were not
 if file_exists:
@@ -71,21 +71,6 @@ for i, video_path in enumerate(FilesDF['VideoPath']):
                     np.save(path2saveNPY, sessionOnsets)
                 break
 
-'''#correct the array for the cases in which the user just closes the loop before it running completely
-videos_not_assessed = -1*np.ones(len(FilesDF)-len(sessionOnsets))
-print(videos_not_assessed)
-sessionOnsets = np.concatenate(sessionOnsets, videos_not_assessed)'''
-
-#print the values that will be stored as .npy
-print(sessionOnsets)
-
-#do I need the following commented code?
-'''#before saving, complete the array (until its length equals the number of videos used) with -1, to signal for 'num of onset frame not obtained yet'
-#save as .npy
-sessionOnsets = np.array(sessionOnsets)
-path2saveNPY = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\numFrameSessionOnset.npy"
-np.save(path2saveNPY, sessionOnsets)
-'''
 #If you reached this part of the code you have an array with the number of the frames corresponding to the beggining of each session
 #So, it is time to place those values in the proper column of FilesDF and store the file again as pkl
 FilesDF['FrameSessionOnset'] = sessionOnsets
