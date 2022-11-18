@@ -38,8 +38,10 @@ def calculateBodyPartVel(df_predictions, loc, FrameSessionOnset):
     velMagnitude = np.array(velMagnitude)
     #get only the first 15 minutes hint:[FrameSessionOnset:FrameSessionOnset+session_duration_frames]
     velMagnitude = velMagnitude[FrameSessionOnset:FrameSessionOnset+session_duration_frames]
+    #create a variable to save the corresponding DLC coordinate likelihoods
+    likelihoods = df_predictions[df_predictions.columns[loc]][FrameSessionOnset:FrameSessionOnset+session_duration_frames]
 
-    return velMagnitude
+    return velMagnitude, likelihoods
 
 #create a file pattern and define the file type to save the new dataframes
 file_pattern = 'velMagnitude_'
@@ -68,10 +70,13 @@ for i, path in enumerate(FilesDF['Organized_DLC_predictions.pkl']):
             if 'likelihood' in col:
                 loc = df_predictions.columns.get_loc(col)
                 #create the arrays 
-                velMagnitude = calculateBodyPartVel(df_predictions, loc, FilesDF['FrameSessionOnset'][i])
+                velMagnitude, likelihoods = calculateBodyPartVel(df_predictions, loc, FilesDF['FrameSessionOnset'][i])
                 #for example: you start with 'right_ear (likelihood)' and get 'VelMagnitude_right_ear'
                 name_column = 'VelMagnitude_' + df_predictions.columns[loc].split(" ")[0]
                 df_velMagnitude[name_column] = velMagnitude
+                #add a column with the corresponding coordinate likelihoods
+                name_likelihood_column = df_predictions.columns[loc].split(" ")[0] + '_likelihood'
+                df_velMagnitude[name_likelihood_column] = np.array(likelihoods)
         #show the new df
         print(df_velMagnitude)
         #create the path to save the new dataframe as pickle
