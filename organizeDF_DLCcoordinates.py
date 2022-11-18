@@ -37,12 +37,13 @@ DLCpredictionsPaths = []
 #check which DLC analysis files exist and store the file paths in a separate column in FilesDF
 for i, path in enumerate(FilesDF['VideoPath']):
     videoName = path[:-4]
-    filePatternDLC = 'DLC_resnet50_DLC_postingestiveReinforcersNov4shuffle1_500000.csv'
+    #change this file pattern to use the filtered predictions
+    filePatternDLC = 'DLC_resnet50_DLC_postingestiveReinforcersNov4shuffle1_500000_filtered.csv'
     file2search4 = videoName+filePatternDLC
     if os.path.exists(file2search4):
         DLCpredictionsPaths.append(file2search4)
     else:
-        #append -1 which is easier to search for and indicates a missing file
+        #append -1 which is easier to search for and indicates a missingfile
         DLCpredictionsPaths.append(-1)
 
 print(DLCpredictionsPaths, len(DLCpredictionsPaths))
