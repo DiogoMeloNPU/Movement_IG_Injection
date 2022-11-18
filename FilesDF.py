@@ -60,23 +60,6 @@ for i in range(videoPathsAndFPS.shape[1]):
     #add the new row to the dataframe
     FilesDF = FilesDF.append(currentRowValues, ignore_index=True)
 
-#delete if unnecessary
-'''#folder containing all the files for the analysis
-drive_files_path_SNc = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\SNc"
-drive_files_path_VTA = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\VTA"
-drive_files_path_total = [drive_files_path_SNc, drive_files_path_VTA]'''
-
-#run this after the DLC analysis is complete
-'''#Match the path of the filtered DLC predictions to the respective row in the df
-for path, subdirs, files in os.walk(path_files):
-    for name in files:
-        if name.endswith('500000_filtered.csv'):
-            #list containing the imaging region (0), the miceID (1), the Reinforcer (2), and the session day (3)
-            currentDLCFile = [name.split('_')[0], name.split('_')[1], name.split('_')[2], name.split('_')[3][3:]]
-            match = FilesDF.loc[(FilesDF['Imaging'] == currentDLCFile[0]) & (FilesDF['MiceID'] == currentDLCFile[1]) & (FilesDF['Reinforcer'] == currentDLCFile[2]) & (FilesDF['SessionDay'] == currentDLCFile[3])]
-            if len(match) == 1:
-                FilesDF['FilteredDLCPath'][match.index[0]] = os.path.join(path, name)'''
-
 #show the df
 print(FilesDF)
 
