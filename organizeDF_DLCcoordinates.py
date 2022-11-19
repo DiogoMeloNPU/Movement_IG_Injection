@@ -48,26 +48,26 @@ for i, path in enumerate(FilesDF['VideoPath']):
 
 print(DLCpredictionsPaths, len(DLCpredictionsPaths))
 
-#use the DLCpredictionsPath to fill a new df column
-FilesDF['DLC_predictions.csv'] = DLCpredictionsPaths
+#use the filteredDLCpredictionsPath to fill the column 'FilteredDLCPath.csv'
+FilesDF['FilteredDLCPath'] = DLCpredictionsPaths
 
 print(FilesDF)
 
-#create an array to save the paths of the new OrganizedDLC files
+#create an array to save the paths of the new OrganizedFilteredDLC files
 OrganizedDLCpaths = []
 #create a file pattern to name the new files
 file_pattern = 'OrganizedDLC_'
 #create a new file with an organized dataframe of DLC predictions for all prediction files
-for row, DLCpredictionFile in enumerate(FilesDF['DLC_predictions.csv']):
-    if isinstance(DLCpredictionFile, str):
-        print('\n\n----Organize the following file and display the new dataframe----: {}'.format(DLCpredictionFile))
-        organized_DLC_predictionsDF = buildDLCpredictionsDF(DLCpredictionFile)
+for row, path in enumerate(FilesDF['FilteredDLCPath']):
+    if isinstance(path, str):
+        print('\n\n----Organize the following file and display the new dataframe----: {}'.format(path))
+        organized_DLC_predictionsDF = buildDLCpredictionsDF(path)
         #create the path of the new file
-        temp_path = FilesDF['DLC_predictions.csv'].iloc[row].split('\\')[:-1]
+        temp_path = FilesDF['FilteredDLCPath'].iloc[row].split('\\')[:-1]
         file_type = '.pkl'
-        temp_path.append(file_pattern+DLCpredictionFile.split('\\')[-1][:-4]+file_type)
-        #same path as the other files, not the path of the original DLC file (which was in a separate folder)
+        temp_path.append(file_pattern+path.split('\\')[-1][:-4]+file_type)
         path2save_organizedDLC_DF = '\\'.join(temp_path)
+        #save the new file
         print('A new file was created in the following folder: {}'.format(path2save_organizedDLC_DF))
         organized_DLC_predictionsDF.to_pickle(path2save_organizedDLC_DF)
         OrganizedDLCpaths.append(path2save_organizedDLC_DF)
