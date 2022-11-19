@@ -7,6 +7,8 @@ import seaborn as sns
 FilesDFpath = "E:\\.shortcut-targets-by-id\\1un_-G2CqE1eg6sx5KdpwrQRyPBJ1REFA\\All_video_data_baseline\\MovementIGInjectionFilesDF.pkl"
 FilesDF = pd.read_pickle(FilesDFpath)
 
+#CHANGE THIS CODE TO CHECK THE LIKELIHOOD DISTRIBUTIONS DURING THE SESSION!!!! (by checking the velocity.pkl files)
+
 #check the likelihood distribution of the catheter and the tailbase likelihood for each session
 for sessionVelMagnitude in FilesDF['Organized_DLC_predictions.pkl']:
     if isinstance(DLCpath, str):
