@@ -80,7 +80,7 @@ for i, path in enumerate(FilesDF['Organized_DLC_predictions.pkl']):
         #show the new df
         print(df_velMagnitude)
         #create the path to save the new dataframe as pickle
-        temp_path = FilesDF['DLC_predictions.csv'].iloc[i].split('\\')[:-1]
+        temp_path = FilesDF['FilteredDLCPath'].iloc[i].split('\\')[:-1]
         temp_path.append(file_pattern+path.split('\\')[-1][:-4]+file_type)
         path2save_velocityDF = '\\'.join(temp_path)
         #save the new dataframe containing the velocities in the indicated path
