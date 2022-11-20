@@ -30,8 +30,10 @@ for i, path in enumerate(FilesDF['velMagnitude.pkl']):
         #bin the data accoddingly (notice that 15 Hz and 10 Hz videos will have a different number of data points per bin)
         #...for this I will reshape the array in smaller arrays (the same ammount as numBins) and take only the average of the smaller arrays
         #...as the value to assign to the bin
-        binnedCatheterVel = np.reshape(catheterVel, (int(numBins), int(len(catheterVel)/numBins)))
-        binnedTailbaseVel = np.reshape(tailbaseVel, (int(numBins), int(len(tailbaseVel)/numBins)))
+        reshaped_CatheterVel = np.reshape(catheterVel, (int(numBins), int(len(catheterVel)/numBins)))
+        reshaped_TailbaseVel = np.reshape(tailbaseVel, (int(numBins), int(len(tailbaseVel)/numBins)))
+        binnedCatheterVel = [round(np.mean(reshaped_CatheterVel[row, :]), 2) for row in range(reshaped_CatheterVel.shape[0])]
+        binnedTailbaseVel = [round(np.mean(reshaped_TailbaseVel[row, :]), 2) for row in range(reshaped_TailbaseVel.shape[0])]
         #create the paths to save the new files as .npy
         temp_path_catheter = FilesDF['FilteredDLCPath'].iloc[i].split('\\')[:-1]
         temp_path_tailbase = FilesDF['FilteredDLCPath'].iloc[i].split('\\')[
