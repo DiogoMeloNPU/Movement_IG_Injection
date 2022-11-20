@@ -26,17 +26,43 @@ for i, path in enumerate(FilesDF['velMagnitude.pkl']):
     if isinstance(path, str):
         #read the current file containing the velocities and the prediction likelihoods of one session
         df_velMag = pd.read_pickle(path)
-        catheterVel, tailbaseVel = df_velMag['VelMagnitude_catheter'], df_velMag['VelMagnitude_tailbase']
+        catheterVel, tailbaseVel = np.array(df_velMag['VelMagnitude_catheter']), np.array(df_velMag['VelMagnitude_tailbase'])
         #bin the data accoddingly (notice that 15 Hz and 10 Hz videos will have a different number of data points per bin)
-        #...for this I will reshape the 
-        binnedCatheterVel = 
-        binnedTailbaseVel = 
+        #...for this I will reshape the array in smaller arrays (the same ammount as numBins) and take only the average of the smaller arrays
+        #...as the value to assign to the bin
+        binnedCatheterVel = np.reshape(catheterVel, (int(numBins), int(len(catheterVel)/numBins)))
+        binnedTailbaseVel = np.reshape(tailbaseVel, (int(numBins), int(len(tailbaseVel)/numBins)))
         #create the paths to save the new files as .npy
-        temp_path = FilesDF['DLC_predictions.csv'].iloc[i].split('\\')[:-1]
-        temp_path_catheter.append(file_pattern_catheter+path.split('\\')[-1][:-4]+file_type)
-        temp_path_tailbase.append(file_pattern_tailbase+path.split('\\')[-1][:-4]+file_type)
+        temp_path = FilesDF['FilteredDLCPath'].iloc[i].split('\\')[:-1]
+        temp_path_catheter = temp_path
+        temp_path_tailbase = temp_path
+        temp_path_catheter.append(
+            file_pattern_catheter+path.split('\\')[-1][26:-4]+file_type)
+        temp_path_tailbase.append(
+            file_pattern_tailbase+path.split('\\')[-1][26:-4]+file_type)
         path2save_binnedCatheterVel = '\\'.join(temp_path_catheter)
         path2save_binnedTailbaseVel = '\\'.join(temp_path_tailbase)
         #save the .npy files containing the binned velocity signals in the respective paths
-        np.save(path2save_binnedCatheterVel, binnedCatheterVel)
-        np.save(path2save_binnedTailbaseVel, binnedTailbaseVel)
+        print('The binned velocity of the CATHETER in the current session was saved in: {}'.format(path2save_binnedCatheterVel))
+        #np.save(path2save_binnedCatheterVel, binnedCatheterVel)
+        BinnedCatheterVelPaths.append(path2save_binnedCatheterVel)
+        print('The binned velocity of the TAILBASE in the current session was saved in: {}'.format(path2save_binnedTailbaseVel))
+        #np.save(path2save_binnedTailbaseVel, binnedTailbaseVel)
+        BinnedTailbaseVelPaths.append(path2save_binnedTailbaseVel); print('\n')
+    else:
+        BinnedCatheterVelPaths.append(-1)
+        BinnedTailbaseVelPaths.append(-1)
+
+#create a new column in FilesDF to save the paths of the binned catheter velocities
+#FilesDF['binnedCatheterVel.npy'] = BinnedCatheterVelPaths
+
+#create a new column in FilesDF to save the paths of the binned tailbase velocities
+#FilesDF['binnedTailbaseVel.npy'] = BinnedTailbaseVelPaths
+
+#show the df
+print(FilesDF)
+
+#save the df as a pkl file in google drive - this will overwrite the MovementIGInjectionFilesDF.pkl file
+#path2saveDF = FilesDFpath
+#FilesDF.to_pickle(path2saveDF)
+#print('\n\nThe MovementIGinjectionFilesDF.pkl file was updated.')
