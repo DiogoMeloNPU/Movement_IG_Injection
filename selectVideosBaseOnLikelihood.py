@@ -32,12 +32,13 @@ if see_plots == str(1):
         plt.show()
 
 #check the distribution of the fraction of the session in which the likelihood of the predictions is > 0.9
-see_fractions_hist = input('Do you want to check the distribution of the fractions of the session in which the likelihood o the predictions is > 0.9? (1 for YES, 0 for NO)')
+see_fractions_hist = input('Do you want to check the distribution of the fractions of the session in which the likelihood o the predictions is > treshold? (1 for YES, 0 for NO)')
 
 #establish a criteria based on the likelihood distribution during the session
 # I will start by setting the session inclusion criteria to be at leat 80% of the video with > 0.9 prediction likelihood
 sessionFraction = 0.6
-predictionLikelihood = 0.95
+predictionLikelihood = 0.99
+numBins = 20
 
 if see_fractions_hist == str(1):
     #create vectors to save the fractions of the sessions in which prediction likelihood > 0.9
@@ -65,16 +66,16 @@ if see_fractions_hist == str(1):
             else:
                 includeInAnalysis.append(0)
     plt.subplot(1,2,1)
-    plt.hist(catheterFractionsAboveCutoff, bins=20)
+    plt.hist(catheterFractionsAboveCutoff, bins=numBins)
     #sns.kdeplot(catheterFractionsAboveCutoff)
-    plt.xlabel('Fraction of session above 0.95 likelihood')
+    plt.xlabel('Fraction of session above {} likelihood'.format(predictionLikelihood))
     plt.ylabel('Count')
     plt.title('Catheter')
     plt.ylim(0, len(catheterFractionsAboveCutoff))
     plt.subplot(1,2,2)
-    plt.hist(tailbaseFractionsAboveCutoff, bins=20)
+    plt.hist(tailbaseFractionsAboveCutoff, bins=numBins)
     #sns.kdeplot(tailbaseFractionsAboveCutoff)
-    plt.xlabel('Fraction of session above 0.95 likelihood')
+    plt.xlabel('Fraction of session above {} likelihood'.format(predictionLikelihood))
     plt.title('Tailbase')
     plt.ylim(0, len(tailbaseFractionsAboveCutoff))
     plt.show()
