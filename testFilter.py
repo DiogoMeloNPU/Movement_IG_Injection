@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 organized_DLC = buildDLCpredictionsDF(path)
 organized_filteredDLC = buildDLCpredictionsDF(path_filtered)
 
+
+#IMPLEMENT LOOP TO CHECK THE EFFECT OF THE FILTER IN ALL THE SESSIONS
+#REBUILD THIS NOT TO REPEAT THE PROCESS OF PRODUCING ORGANIZED DLC DATAFRAMES
 plt.subplot(1,2,1)
 plt.plot(organized_DLC['tailbase (x)'])
 plt.plot(organized_filteredDLC['tailbase (x)'])
