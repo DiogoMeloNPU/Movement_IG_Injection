@@ -57,7 +57,7 @@ for sessionType in sessions[:-1]: #do not consider VTA/SMOF
     print('_'.join(sessionType))
     sessionTypeSignal = np.zeros((num_bins,))
     num_sessions = 0
-    for i, binnedCatheterVel in enumerate(FilesDF['binnedCatheterVel.npy']):
+    for i, binnedCatheterVel in enumerate(FilesDF['median_binnedCatheterVel.npy']):
         if FilesDF['Imaging'][i] == sessionType[0] and FilesDF['Reinforcer'][i] == sessionType[1]:
             currentSession = np.load(binnedCatheterVel)
             if np.nan not in currentSession:
@@ -73,16 +73,6 @@ for sessionType in sessions[:-1]: #do not consider VTA/SMOF
     print('Standard Error: {}'.format(StdError))
     print(num_sessions)
     print('\n')
-    #define the color of the signal according to the reinforcer
-    '''    if sessionType[1] == 'SUCRALOSE':
-        colorReinforcer = color[0]
-    elif sessionType[1] == 'SUCRALOSE':
-        colorReinforcer = color[1]
-    elif sessionType[1] == ' CORNOIL':
-        colorReinforcer = color[2]
-    elif sessionType[1] == 'SMOF':
-        colorReinforcer = color[3]
-    print(colorReinforcer)'''
     if sessionType[0] == 'SN':
         ax_SN.plot(np.linspace(begg_second, end_second, len(Signal)), Signal, label='Intragastric {} Sessions (n={})'.format(sessionType[1], num_sessions), linewidth=0.9)
         ax_SN.fill_between(np.linspace(begg_second, end_second, len(StdError)),
@@ -148,3 +138,16 @@ plt.plot(sucroseSN_sessions)
 plt.plot(sucraloseSN_sessions)
 plt.ylim([0,10])
 plt.show()'''
+'''
+#delete
+for sessionType in sessions[:-1]:  # do not consider VTA/SMOF
+    print('_'.join(sessionType))
+    sessionTypeSignal = np.zeros((num_bins,))
+    num_sessions = 0
+    for i, binnedCatheterVel in enumerate(FilesDF['median_binnedCatheterVel.npy']):
+        if FilesDF['Imaging'][i] == sessionType[0] and FilesDF['Reinforcer'][i] == sessionType[1]:
+            currentSession = np.load(binnedCatheterVel)
+            plt.plot(currentSession)
+    plt.title()
+    plt.show()
+'''
